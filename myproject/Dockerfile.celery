@@ -1,0 +1,22 @@
+# Use the official Python image as the base image
+FROM python:3.9
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements.txt file to the container
+COPY requirements.txt .
+
+# Install the Python dependencies
+RUN pip install -r requirements.txt
+
+# Copy the application code to the container
+COPY . .
+
+# Set the environment variables
+ENV DJANGO_SETTINGS_MODULE=myproject.settings
+ENV CELERY_APP=myproject.celery
+ENV CELERY_LOG_LEVEL=info
+
+# Start the Celery worker
+CMD celery -A myproject worker --loglevel=$CELERY_LOG_LEVEL

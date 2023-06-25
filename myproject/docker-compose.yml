@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE='my_project'
+      - MYSQL_ROOT_PASSWORD='ibiye4700'
+    ports:
+      - '3307:3306'
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+#new
+  redis:
+    image: redis:latest
+    ports:
+      - '6380:6379'
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A myproject worker --loglevel=info
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+      - redis
+    links:
+      - db
+      - redis
