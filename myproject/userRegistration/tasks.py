@@ -11,7 +11,7 @@ from django.conf import settings
 
 # @shared_task(bind=True)
 # def send_everyday_mail(self, message):
-#     recipient_list=['mielliye@gmail.com']
+#     recipient_list=[user.email]
 #     mail_subject = "You are on your luck day!"
 #     send_mail(
 #         subject = mail_subject,
@@ -31,7 +31,7 @@ def send_everyday_mail(self):
 
     # Send email to each new user
     for user in new_users:
-        recipient_list = ['mielliye@gmail.com']
+        recipient_list = [user.email]
         mail_subject = "Welcome to Our Website!"
         message = f"Dear {user.username}, welcome to our website. We are glad to have you on board!"
 
@@ -56,7 +56,7 @@ def send_welcome_email(user_id):
             subject=subject,
             message=message,
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=['mielliye@gmail.com'],
+            recipient_list=[user.email],
             fail_silently=False,
         )
     except User.DoesNotExist:
