@@ -19,7 +19,6 @@ urlpatterns = [
     path('', include('products.urls')),
     path('reg/', include('userRegistration.urls')),
     path('img/', include('imageProcc.urls')),
-
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

@@ -12,6 +12,6 @@ app.conf.beat_schedule = {
     'send_everyday_mail': {
         'task': 'products.tasks.send_everyday_mail',
         'schedule': crontab(hour=20, minute=54),
-        # 'args' : ("it has to work plsssss",)
+
     }
 } 

@@ -6,6 +6,8 @@ from rest_framework.decorators import api_view, permission_classes, schema
 from .tasks import send_welcome_email
 from rest_framework.response import Response
 
+from datetime import datetime, timedelta
+
 
 
 #register api view 
@@ -18,12 +20,13 @@ from rest_framework.response import Response
     }
 )
 @api_view(['POST'])
+@permission_classes([])
 def register(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
         send_welcome_email.apply_async(args=(user.id,), countdown=20)  # Set countdown to 10 seconds
-        # send_welcome_email.apply_async(args=(user.id,), countdown=timedelta(days=1).total_seconds())
+        send_welcome_email.apply_async(args=(user.id,), countdown=timedelta(days=1).total_seconds())
         return Response({'message': 'User registered successfully.'})
     return Response(serializer.errors, status=400)
 

@@ -26,8 +26,7 @@ from django.conf import settings
 def send_everyday_mail(self):
     # Get the users who registered 1 day ago
     one_day_ago = timezone.now() - timedelta(days=1)
-    # new_users = User.objects.filter(date_joined__date=one_day_ago.date())
-    new_users = User.objects.all()
+    new_users = User.objects.filter(date_joined__date=one_day_ago.date())
 
     # Send email to each new user
     for user in new_users:
