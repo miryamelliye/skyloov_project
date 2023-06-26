@@ -9,9 +9,9 @@ app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
-    'send_ad_mails': {
-        'task': 'products.tasks.send_ad_mails',
-        'schedule': crontab(hour=18, minute=52),
-        'args' : ("it has to work plsssss",)
+    'send_everyday_mail': {
+        'task': 'products.tasks.send_everyday_mail',
+        'schedule': crontab(hour=20, minute=54),
+        # 'args' : ("it has to work plsssss",)
     }
 } 

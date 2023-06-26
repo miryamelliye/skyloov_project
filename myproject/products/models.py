@@ -13,8 +13,6 @@ class Product(models.Model):
     rating = models.FloatField()
     image = models.ImageField(upload_to='product_images/', default='',blank=True,null=True)  # Add the image field
 
-    # Add any other fields relevant to your product model
-
     def __str__(self):
         return self.category + ' - ' + self.brand
 
@@ -22,4 +20,3 @@ class CartItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    # Add any additional fields you need

@@ -42,10 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'products',
     'django_celery_beat',
     'drf_yasg',
-    
+    'products',
+    'userRegistration',
+    'imageProcc'
 ]
 
 SWAGGER_SETTINGS = {
@@ -58,6 +59,9 @@ SWAGGER_SETTINGS = {
     },
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.MultiPartParser',
     ],
 }
 
@@ -139,7 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/0',  # Update hostname to 'redis'
+        'LOCATION': 'redis://redis:6379/0',  
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
